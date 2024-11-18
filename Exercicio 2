@@ -1,11 +1,8 @@
-Exercicio 2
-
-index.php
+INDEX.PHP
 
 <?php
 
 include 'database.php';
-
 
 function listar_tarefas() {
     $db = get_db_connection();
@@ -23,6 +20,93 @@ $tarefas = listar_tarefas();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de Tarefas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #5D5C61;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 20px auto;
+            width: 50%;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        form input, form button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: #2E86C1;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #1A5276;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            width: 60%;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        ul li {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        ul li:last-child {
+            border-bottom: none;
+        }
+
+        ul li a {
+            text-decoration: none;
+            color: #E74C3C;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        ul li a:hover {
+            color: #C0392B;
+        }
+
+        ul li strike {
+            color: #888;
+        }
+    </style>
 </head>
 <body>
     <h1>Lista de Tarefas</h1>
@@ -41,8 +125,10 @@ $tarefas = listar_tarefas();
             <?php if ($tarefa['concluida'] == 0): ?>
                 <li>
                     <?php echo htmlspecialchars($tarefa['descricao']); ?> (<?php echo $tarefa['data_vencimento']; ?>)
-                    <a href="update_tarefa.php?id=<?php echo $tarefa['id']; ?>">Marcar como concluída</a>
-                    <a href="delete_tarefa.php?id=<?php echo $tarefa['id']; ?>">Excluir</a>
+                    <span>
+                        <a href="update_tarefa.php?id=<?php echo $tarefa['id']; ?>">Marcar como concluída</a>
+                        <a href="delete_tarefa.php?id=<?php echo $tarefa['id']; ?>">Excluir</a>
+                    </span>
                 </li>
             <?php endif; ?>
         <?php endforeach; ?>
@@ -60,9 +146,8 @@ $tarefas = listar_tarefas();
     </ul>
 </body>
 </html>
-
 ==================================================
-database.php
+DATABASE.PHP
 
 <?php
 
@@ -87,7 +172,7 @@ create_table_if_not_exists();
 ?>
 
 =========================
-add_tarefa.php
+ADD_TAREFA.PHP
 
 <?php
 
@@ -107,8 +192,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
+
 =============================
-update_tarefa.php
+UPDATE_TAREFA.PHP
+
 <?php
 
 include 'database.php';
@@ -126,7 +213,9 @@ if (isset($_GET['id'])) {
 }
 ?>
 ===============================
-delete_tarefa.php
+
+DELETE_TAREFA.PHP
+
 <?php
 
 include 'database.php';
@@ -143,6 +232,7 @@ if (isset($_GET['id'])) {
     exit;
 }
 ?>
+
 
 
 
